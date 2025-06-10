@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Game: Light or Dark?</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.5s;
+    }
+
+    h1 {
+      margin-top: 30px;
+      font-size: 3rem;
+    }
+
+    #actionText {
+      font-size: 2.5rem;
+      margin: 30px 0;
+      font-weight: bold;
+    }
+
+    .btn {
+      padding: 20px 40px;
+      margin: 15px;
+      font-size: 1.8rem;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+    }
+
+    .light {
+      background-color: #fff8dc;
+      color: black;
+    }
+
+    .dark {
+      background-color: #1e1e1e;
+      color: white;
+    }
+
+    .light-btn {
+      background-color: #ffd700;
+      color: black;
+    }
+
+    .dark-btn {
+      background-color: #333;
+      color: white;
+    }
+
+    .random-btn {
+      background-color: #4caf50;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎮 Game: Light or Dark?</h1>
+  <div id="actionText">Click a button to begin!</div>
+
+  <button class="btn random-btn" onclick="playRandom()">🔀 Random</button>
+  <button class="btn light-btn" onclick="playLight()">🌞 Light!</button>
+  <button class="btn dark-btn" onclick="playDark()">🌚 Dark!</button>
+
+  <audio id="lightAudio" src="https://actions.google.com/sounds/v1/human_voices/hooray.ogg"></audio>
+  <audio id="darkAudio" src="https://actions.google.com/sounds/v1/ambiences/bedroom_sleeping.ogg"></audio>
+
+  <script>
+    let resetTimeout;
+
+    function resetState() {
+      document.body.className = '';
+      document.getElementById('actionText').innerText = 'Click a button to begin!';
+    }
+
+    function playLight() {
+      clearTimeout(resetTimeout);
+      document.body.className = 'light';
+      document.getElementById('actionText').innerText =
+        'Stand up, raise your hands, and smile brightly! 😄✨';
+      document.getElementById('lightAudio').play();
+      resetTimeout = setTimeout(resetState, 5000);
+    }
+
+    function playDark() {
+      clearTimeout(resetTimeout);
+      document.body.className = 'dark';
+      document.getElementById('actionText').innerText =
+        'Sit down, cover your face, and pretend to be sad or sleepy... 😴🌙';
+      document.getElementById('darkAudio').play();
+      resetTimeout = setTimeout(resetState, 5000);
+    }
+
+    function playRandom() {
+      const choice = Math.random() < 0.5 ? 'light' : 'dark';
+      if (choice === 'light') {
+        playLight();
+      } else {
+        playDark();
+      }
+    }
+  </script>
+</body>
+</html>
